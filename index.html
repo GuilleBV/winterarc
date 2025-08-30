@@ -3,179 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Winter Arc</title>
+    <meta name="description" content="Winter Arc - El desafío del invierno que forja a los fuertes">
+    <meta name="keywords" content="Winter Arc, desafío, invierno, disciplina, fortaleza">
+    <meta name="author" content="Winter Arc Team">
+    
+    <title>Winter Arc - Resiste Hoy, Domina Mañana</title>
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❄️</text></svg>">
 </head>
 <body>
+    <!-- ========================================
+         HEADER PRINCIPAL
+         ======================================== -->
     <header class="header">
-        <h1 class="title">Winter Arc</h1>
+        <h1 class="title">WINTER ARC</h1>
         <div class="official-slogan">Resiste hoy, domina mañana.</div>
     </header>
 
-    <main class="main">
+    <!-- ========================================
+         SECCIÓN DEL CONTADOR
+         ======================================== -->
+    <main>
         <section class="counter-section">
-            <!-- Texto descriptivo del contador -->
             <div class="counter-description">
-                <span id="counter-text" class="counter-text"></span>
+                <span id="counter-text" class="counter-text">Empieza en</span>
             </div>
             
             <div id="countdown" class="countdown">
                 <div class="countdown-item">
-                    <span id="days" class="number">--</span>
+                    <span class="number" id="days">00</span>
                     <span class="label">Días</span>
                 </div>
                 <div class="countdown-item">
-                    <span id="hours" class="number">--</span>
+                    <span class="number" id="hours">00</span>
                     <span class="label">Horas</span>
                 </div>
                 <div class="countdown-item">
-                    <span id="minutes" class="number">--</span>
+                    <span class="number" id="minutes">00</span>
                     <span class="label">Minutos</span>
                 </div>
                 <div class="countdown-item">
-                    <span id="seconds" class="number">--</span>
+                    <span class="number" id="seconds">00</span>
                     <span class="label">Segundos</span>
                 </div>
             </div>
+            
             <div id="status-message" class="status-message"></div>
         </section>
 
-        <!-- Sección épica de finalización (solo visible cuando termine el Winter Arc) -->
-        <section id="epic-finalization" class="epic-finalization" style="display: none;">
-            <!-- Mensaje épico principal -->
+        <!-- ========================================
+             SECCIÓN ÉPICA DE FINALIZACIÓN
+             ======================================== -->
+        <section id="epic-finalization" class="epic-finalization">
             <div id="epic-message" class="epic-message">
                 <h2 class="epic-title">¡El Winter Arc ha finalizado!</h2>
-                <p class="epic-subtitle">Has completado tu viaje de invierno. Ahora evalúa tu transformación.</p>
+                <p class="epic-subtitle">Has completado el desafío. Ahora es momento de evaluar tu progreso.</p>
             </div>
             
-            <!-- Botón épico del cuestionario -->
-            <div id="epic-quiz-button" class="epic-quiz-button" style="display: none;">
+            <div id="epic-quiz-button" class="epic-quiz-button">
                 <button id="start-epic-quiz" class="epic-btn">
-                    <span class="btn-text">🚀 Iniciar Evaluación</span>
-                    <span class="btn-glow"></span>
+                    🚀 Iniciar Evaluación
                 </button>
             </div>
         </section>
 
-        <!-- Sección del cuestionario (solo visible cuando se active) -->
-        <section id="quiz-section" class="quiz-section" style="display: none;">
+        <!-- ========================================
+             SECCIÓN DEL CUESTIONARIO
+             ======================================== -->
+        <section id="quiz-section" class="quiz-section">
             <h2 class="quiz-title">Evaluación del Winter Arc</h2>
-            <p class="quiz-description">Completa este cuestionario para evaluar tu rendimiento durante el Winter Arc.</p>
+            <p class="quiz-description">
+                Responde honestamente cada pregunta para evaluar tu progreso durante el Winter Arc.
+                Cada respuesta se califica del 1 al 5, donde 1 es "Muy malo" y 5 es "Excelente".
+            </p>
             
             <form id="winter-arc-quiz" class="quiz-form">
+                <!-- Ejercicio Físico -->
                 <div class="question-group">
-                    <h3>1. ¿Mantuviste tu rutina de ejercicios durante todo el invierno?</h3>
+                    <h3>¿Cómo has mantenido tu rutina de ejercicio durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="exercise" value="5" required> Sí, todos los días</label>
-                        <label><input type="radio" name="exercise" value="4"> Sí, 5-6 días por semana</label>
-                        <label><input type="radio" name="exercise" value="3"> Sí, 3-4 días por semana</label>
-                        <label><input type="radio" name="exercise" value="2"> Sí, 1-2 días por semana</label>
-                        <label><input type="radio" name="exercise" value="1"> No, muy pocas veces</label>
+                        <input type="radio" id="exercise-1" name="exercise" value="1" required>
+                        <label for="exercise-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="exercise-2" name="exercise" value="2" required>
+                        <label for="exercise-2">2 - Malo</label>
+                        
+                        <input type="radio" id="exercise-3" name="exercise" value="3" required>
+                        <label for="exercise-3">3 - Regular</label>
+                        
+                        <input type="radio" id="exercise-4" name="exercise" value="4" required>
+                        <label for="exercise-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="exercise-5" name="exercise" value="5" required>
+                        <label for="exercise-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Alimentación -->
                 <div class="question-group">
-                    <h3>2. ¿Consumiste una dieta saludable y equilibrada?</h3>
+                    <h3>¿Cómo has mantenido tu alimentación saludable durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="diet" value="5" required> Excelente, siempre saludable</label>
-                        <label><input type="radio" name="diet" value="4"> Muy buena, ocasionalmente no</label>
-                        <label><input type="radio" name="diet" value="3"> Buena, con algunos deslices</label>
-                        <label><input type="radio" name="diet" value="2"> Regular, muchos deslices</label>
-                        <label><input type="radio" name="diet" value="1"> Mala, no me cuidé</label>
+                        <input type="radio" id="diet-1" name="diet" value="1" required>
+                        <label for="diet-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="diet-2" name="diet" value="2" required>
+                        <label for="diet-2">2 - Malo</label>
+                        
+                        <input type="radio" id="diet-3" name="diet" value="3" required>
+                        <label for="diet-3">3 - Regular</label>
+                        
+                        <input type="radio" id="diet-4" name="diet" value="4" required>
+                        <label for="diet-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="diet-5" name="diet" value="5" required>
+                        <label for="diet-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Sueño -->
                 <div class="question-group">
-                    <h3>3. ¿Mantuviste un horario de sueño consistente?</h3>
+                    <h3>¿Cómo has mantenido tu calidad de sueño durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="sleep" value="5" required> Sí, 7-8 horas siempre</label>
-                        <label><input type="radio" name="sleep" value="4"> Sí, 6-7 horas generalmente</label>
-                        <label><input type="radio" name="sleep" value="3"> A veces, irregular</label>
-                        <label><input type="radio" name="sleep" value="2"> Raramente, muy irregular</label>
-                        <label><input type="radio" name="sleep" value="1"> No, horario caótico</label>
+                        <input type="radio" id="sleep-1" name="sleep" value="1" required>
+                        <label for="sleep-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="sleep-2" name="sleep" value="2" required>
+                        <label for="sleep-2">2 - Malo</label>
+                        
+                        <input type="radio" id="sleep-3" name="sleep" value="3" required>
+                        <label for="sleep-3">3 - Regular</label>
+                        
+                        <input type="radio" id="sleep-4" name="sleep" value="4" required>
+                        <label for="sleep-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="sleep-5" name="sleep" value="5" required>
+                        <label for="sleep-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Meditación -->
                 <div class="question-group">
-                    <h3>4. ¿Practicaste meditación o mindfulness?</h3>
+                    <h3>¿Cómo has mantenido tu práctica de meditación o mindfulness durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="meditation" value="5" required> Sí, todos los días</label>
-                        <label><input type="radio" name="meditation" value="4"> Sí, 4-5 veces por semana</label>
-                        <label><input type="radio" name="meditation" value="3"> Sí, 2-3 veces por semana</label>
-                        <label><input type="radio" name="meditation" value="2"> Sí, ocasionalmente</label>
-                        <label><input type="radio" name="meditation" value="1"> No, nunca</label>
+                        <input type="radio" id="meditation-1" name="meditation" value="1" required>
+                        <label for="meditation-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="meditation-2" name="meditation" value="2" required>
+                        <label for="meditation-2">2 - Malo</label>
+                        
+                        <input type="radio" id="meditation-3" name="meditation" value="3" required>
+                        <label for="meditation-3">3 - Regular</label>
+                        
+                        <input type="radio" id="meditation-4" name="meditation" value="4" required>
+                        <label for="meditation-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="meditation-5" name="meditation" value="5" required>
+                        <label for="meditation-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Aprendizaje -->
                 <div class="question-group">
-                    <h3>5. ¿Leíste o aprendiste algo nuevo regularmente?</h3>
+                    <h3>¿Cómo has mantenido tu hábito de aprendizaje durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="learning" value="5" required> Sí, todos los días</label>
-                        <label><input type="radio" name="learning" value="4"> Sí, 4-5 veces por semana</label>
-                        <label><input type="radio" name="learning" value="3"> Sí, 2-3 veces por semana</label>
-                        <label><input type="radio" name="learning" value="2"> Sí, ocasionalmente</label>
-                        <label><input type="radio" name="learning" value="1"> No, nunca</label>
+                        <input type="radio" id="learning-1" name="learning" value="1" required>
+                        <label for="learning-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="learning-2" name="learning" value="2" required>
+                        <label for="learning-2">2 - Malo</label>
+                        
+                        <input type="radio" id="learning-3" name="learning" value="3" required>
+                        <label for="learning-3">3 - Regular</label>
+                        
+                        <input type="radio" id="learning-4" name="learning" value="4" required>
+                        <label for="learning-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="learning-5" name="learning" value="5" required>
+                        <label for="learning-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Relaciones Sociales -->
                 <div class="question-group">
-                    <h3>6. ¿Mantuviste contacto con amigos y familia?</h3>
+                    <h3>¿Cómo has mantenido tus relaciones sociales durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="social" value="5" required> Sí, muy activo socialmente</label>
-                        <label><input type="radio" name="social" value="4"> Sí, regularmente</label>
-                        <label><input type="radio" name="social" value="3"> Sí, ocasionalmente</label>
-                        <label><input type="radio" name="social" value="2"> Raramente</label>
-                        <label><input type="radio" name="social" value="1"> No, muy aislado</label>
+                        <input type="radio" id="social-1" name="social" value="1" required>
+                        <label for="social-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="social-2" name="social" value="2" required>
+                        <label for="social-2">2 - Malo</label>
+                        
+                        <input type="radio" id="social-3" name="social" value="3" required>
+                        <label for="social-3">3 - Regular</label>
+                        
+                        <input type="radio" id="social-4" name="social" value="4" required>
+                        <label for="social-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="social-5" name="social" value="5" required>
+                        <label for="social-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Sustancias -->
                 <div class="question-group">
-                    <h3>7. ¿Evitaste el consumo excesivo de alcohol o tabaco?</h3>
+                    <h3>¿Cómo has controlado el consumo de sustancias nocivas durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="substances" value="5" required> Sí, completamente abstinente</label>
-                        <label><input type="radio" name="substances" value="4"> Sí, consumo mínimo</label>
-                        <label><input type="radio" name="substances" value="3"> Sí, consumo moderado</label>
-                        <label><input type="radio" name="substances" value="2"> No, consumo frecuente</label>
-                        <label><input type="radio" name="substances" value="1"> No, consumo excesivo</label>
+                        <input type="radio" id="substances-1" name="substances" value="1" required>
+                        <label for="substances-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="substances-2" name="substances" value="2" required>
+                        <label for="substances-2">2 - Malo</label>
+                        
+                        <input type="radio" id="substances-3" name="substances" value="3" required>
+                        <label for="substances-3">3 - Regular</label>
+                        
+                        <input type="radio" id="substances-4" name="substances" value="4" required>
+                        <label for="substances-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="substances-5" name="substances" value="5" required>
+                        <label for="substances-5">5 - Excelente</label>
                     </div>
                 </div>
 
+                <!-- Actitud -->
                 <div class="question-group">
-                    <h3>8. ¿Mantuviste una actitud positiva ante las dificultades?</h3>
+                    <h3>¿Cómo has mantenido una actitud positiva durante el Winter Arc?</h3>
                     <div class="radio-group">
-                        <label><input type="radio" name="attitude" value="5" required> Sí, siempre positiva</label>
-                        <label><input type="radio" name="attitude" value="4"> Sí, generalmente positiva</label>
-                        <label><input type="radio" name="attitude" value="3"> A veces positiva, a veces no</label>
-                        <label><input type="radio" name="attitude" value="2"> Raramente positiva</label>
-                        <label><input type="radio" name="attitude" value="1"> No, muy negativa</label>
+                        <input type="radio" id="attitude-1" name="attitude" value="1" required>
+                        <label for="attitude-1">1 - Muy malo</label>
+                        
+                        <input type="radio" id="attitude-2" name="attitude" value="2" required>
+                        <label for="attitude-2">2 - Malo</label>
+                        
+                        <input type="radio" id="attitude-3" name="attitude" value="3" required>
+                        <label for="attitude-3">3 - Regular</label>
+                        
+                        <input type="radio" id="attitude-4" name="attitude" value="4" required>
+                        <label for="attitude-4">4 - Bueno</label>
+                        
+                        <input type="radio" id="attitude-5" name="attitude" value="5" required>
+                        <label for="attitude-5">5 - Excelente</label>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">Evaluar mi Winter Arc</button>
+                <button type="submit" class="submit-btn">
+                    📊 Evaluar Progreso
+                </button>
             </form>
 
-            <!-- Resultado del cuestionario -->
-            <div id="quiz-result" class="quiz-result" style="display: none;">
-                <h3>Tu Resultado del Winter Arc</h3>
-                <div class="result-level">
-                    <span id="result-text" class="result-text"></span>
-                </div>
-                <div class="result-score">
-                    <p>Puntuación: <span id="score-display"></span>/40</p>
-                </div>
-                <button id="retake-quiz" class="retake-btn">Volver a hacer el cuestionario</button>
+            <!-- Resultados del Cuestionario -->
+            <div id="quiz-result" class="quiz-result">
+                <h3>Resultado de tu Evaluación</h3>
+                <div class="result-level" id="result-level">Principiante</div>
+                <div class="result-text" id="result-text">Has completado el Winter Arc</div>
+                <div class="result-score" id="result-score">Puntuación: 0/40</div>
+                <button class="retake-btn" onclick="resetQuiz()">
+                    🔄 Volver a Evaluar
+                </button>
             </div>
         </section>
+
+        <!-- ========================================
+             SECCIÓN DE ESTADÍSTICAS DEL USUARIO
+             ======================================== -->
+        <section id="user-stats" class="user-stats">
+            <h2 class="stats-title">📊 Estadísticas de tu Winter Arc</h2>
+            
+            <!-- Resumen de Estadísticas -->
+            <div class="stats-summary">
+                <div class="summary-card">
+                    <div class="summary-icon">🏆</div>
+                    <h3>Nivel Alcanzado</h3>
+                    <div class="user-level" id="user-level">Principiante</div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">📈</div>
+                    <h3>Puntuación Total</h3>
+                    <div class="user-score" id="user-score">0/40</div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">📅</div>
+                    <h3>Fecha de Evaluación</h3>
+                    <div class="evaluation-date" id="evaluation-date">Hoy</div>
+                </div>
+            </div>
+
+            <!-- Gráfico Circular de Nivel -->
+            <div class="level-chart-container">
+                <h3>Visualización de tu Nivel</h3>
+                <div class="level-chart">
+                    <canvas id="level-chart" width="200" height="200"></canvas>
+                    <div class="chart-center">
+                        <div id="chart-level-text">Principiante</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barras de Progreso por Categoría -->
+            <div class="category-progress">
+                <h3>Progreso por Categoría</h3>
+                <div class="progress-bars">
+                    <div class="progress-item">
+                        <div class="progress-label">Ejercicio Físico</div>
+                        <div class="score-value" id="exercise-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="exercise-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Alimentación</div>
+                        <div class="score-value" id="diet-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="diet-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Calidad del Sueño</div>
+                        <div class="score-value" id="sleep-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="sleep-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Meditación</div>
+                        <div class="score-value" id="meditation-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="meditation-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Aprendizaje</div>
+                        <div class="score-value" id="learning-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="learning-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Relaciones Sociales</div>
+                        <div class="score-value" id="social-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="social-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Control de Sustancias</div>
+                        <div class="score-value" id="substances-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="substances-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">Actitud Positiva</div>
+                        <div class="score-value" id="attitude-score">0/5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="attitude-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones de Estadísticas -->
+            <div class="stats-actions">
+                <button class="reevaluate-btn" onclick="resetQuiz()">
+                    🔄 Nueva Evaluación
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================
+             BOTÓN DE PRUEBA (DESARROLLO)
+             ======================================== -->
+        <div class="test-button-container">
+            <button id="test-epic-mode" class="test-btn">
+                🧪 Activar Modo Épico (Prueba)
+            </button>
+        </div>
     </main>
 
-    <footer class="footer">
-        <!-- Footer vacío por ahora -->
-    </footer>
-
-    <!-- Canvas para el efecto de confeti -->
+    <!-- ========================================
+         CANVAS PARA EFECTO DE CONFETI
+         ======================================== -->
     <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
+    <!-- ========================================
+         SCRIPTS JAVASCRIPT
+         ======================================== -->
     <script src="script.js"></script>
 </body>
 </html>

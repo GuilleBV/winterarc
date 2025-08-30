@@ -1,19 +1,46 @@
+/* ========================================
+   WINTER ARC - ESTILOS OPTIMIZADOS
+   ========================================
+   
+   FLUJO VISUAL OPTIMIZADO:
+   - Elementos aparecen secuencialmente sin parpadeos
+   - Transiciones suaves y predecibles
+   - Orden de aparición: Animación → Cuestionario → Estadísticas
+   - Sin elementos que aparezcan de forma desordenada
+*/
+
+/* ========================================
+   RESET Y CONFIGURACIÓN GLOBAL
+   ======================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: #000000;
-    min-height: 100vh;
-    color: #ffffff;
-    line-height: 1.6;
-    overflow-x: hidden;
+html {
+    scroll-behavior: smooth;
 }
 
-/* Efecto de fondo sutil con azul */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+/* ========================================
+   FONDO Y EFECTOS VISUALES
+   ======================================== */
+
 body::before {
     content: '';
     position: fixed;
@@ -21,27 +48,34 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 80%, rgba(30, 144, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(30, 144, 255, 0.05) 0%, transparent 50%);
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(30, 144, 255, 0.02) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
 }
 
+/* ========================================
+   HEADER Y TÍTULO PRINCIPAL
+   ======================================== */
+
 .header {
     text-align: center;
-    padding: 4rem 2rem 3rem;
+    padding: 4rem 2rem 2rem;
     position: relative;
+    z-index: 10;
 }
 
 .title {
     font-size: 5rem;
     font-weight: 900;
     color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    text-shadow: 0 0 30px rgba(30, 144, 255, 0.5);
-    position: relative;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
     margin-bottom: 2rem;
+    position: relative;
+    animation: fadeInDown 1.5s ease-out;
 }
 
 .title::after {
@@ -52,44 +86,42 @@ body::before {
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #1E90FF, transparent);
+    background: linear-gradient(90deg, transparent, #00FFFF, transparent);
+    border-radius: 2px;
 }
+
+/* ========================================
+   ESLOGAN OFICIAL
+   ======================================== */
 
 .official-slogan {
     font-size: 3.5rem;
     font-weight: 700;
     color: #ffffff;
+    text-align: center;
     margin-top: 4rem;
     margin-bottom: 5rem;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.3s;
-    text-shadow: 
-        0 0 20px rgba(30, 144, 255, 0.3),
-        0 0 40px rgba(30, 144, 255, 0.2),
-        0 0 60px rgba(30, 144, 255, 0.1);
-    letter-spacing: 0.05em;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    letter-spacing: -0.01em;
     text-transform: capitalize;
+    animation: fadeInUp 1.8s ease-out 0.3s both;
 }
 
-.main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
+/* ========================================
+   SECCIÓN DEL CONTADOR
+   ======================================== */
 
 .counter-section {
-    text-align: center;
-    margin-bottom: 5rem;
     padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    text-align: center;
+    animation: fadeInUp 2s ease-out 0.6s both;
 }
 
-/* Texto descriptivo del contador */
 .counter-description {
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.4s;
+    margin-bottom: 3rem;
+    animation: fadeInUp 2.2s ease-out 0.8s both;
 }
 
 .counter-text {
@@ -98,113 +130,594 @@ body::before {
     color: #8B5CF6;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    text-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease-in-out;
 }
 
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    align-items: center;
+    gap: 2rem;
     flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeInUp 1s ease-out forwards;
-    animation-delay: 0.6s;
+    margin: 0 auto;
+    max-width: 800px;
 }
 
 .countdown-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 150px;
-    padding: 2rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(30, 144, 255, 0.2);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    min-width: 120px;
+    text-align: center;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.countdown-item:hover::before {
+    left: 100%;
 }
 
 .countdown-item:hover {
-    transform: translateY(-10px);
-    border-color: rgba(30, 144, 255, 0.6);
-    box-shadow: 0 10px 30px rgba(30, 144, 255, 0.2);
+    transform: translateY(-10px) scale(1.05);
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
 }
 
 .number {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     font-weight: 900;
     color: #ffffff;
-    text-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
-    margin-bottom: 1rem;
-    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    display: block;
+    margin-bottom: 0.5rem;
     line-height: 1;
 }
 
 .label {
     font-size: 1rem;
     font-weight: 600;
-    color: #1E90FF;
+    color: #00FFFF;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
 }
 
-.status-message {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1E90FF;
-    padding: 2rem;
-    background: rgba(30, 144, 255, 0.1);
-    border: 1px solid rgba(30, 144, 255, 0.3);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+/* ========================================
+   SECCIÓN ÉPICA DE FINALIZACIÓN
+   ======================================== */
+
+.epic-finalization {
     display: none;
-    max-width: 600px;
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 800px;
     margin: 0 auto;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1s ease-in-out;
 }
 
-.status-message.show {
+.epic-finalization.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.epic-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #00FFFF;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    animation: epicTitleEntrance 2s ease-out both;
+}
+
+.epic-subtitle {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: epicSubtitleEntrance 2s ease-out 0.5s both;
+}
+
+.epic-quiz-button {
+    display: none;
+    margin-top: 2rem;
+    animation: epicButtonEntrance 1s ease-out 3.5s both;
+}
+
+.epic-btn {
+    background: linear-gradient(135deg, #00FFFF, #1E90FF);
+    color: #000000;
+    border: none;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+.epic-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.8);
+}
+
+.epic-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.epic-btn:hover::before {
+    left: 100%;
+}
+
+/* ========================================
+   SECCIÓN DEL CUESTIONARIO
+   ======================================== */
+
+.quiz-section {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 25px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+    animation: fadeInUp 1s ease-out both;
+}
+
+.quiz-section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.quiz-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.quiz-description {
+    font-size: 1.1rem;
+    color: #cccccc;
+    text-align: center;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.quiz-form {
+    display: none;
+}
+
+.question-group {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.question-group:hover {
+    border-color: rgba(0, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.question-group h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.radio-group label {
+    flex: 1;
+    min-width: 80px;
+    padding: 1rem;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.radio-group label:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    background: rgba(0, 255, 255, 0.3);
+    border-color: #00FFFF;
+    color: #000000;
+    font-weight: 700;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #00FFFF, #1E90FF);
+    color: #000000;
+    border: none;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     display: block;
+    margin: 3rem auto 0;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+.submit-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.8);
+}
+
+/* ========================================
+   RESULTADOS DEL CUESTIONARIO
+   ======================================== */
+
+.quiz-result {
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    margin-top: 2rem;
     animation: fadeInUp 0.8s ease-out;
 }
 
-.footer {
-    text-align: center;
-    padding: 4rem 2rem;
-    margin-top: auto;
-    border-top: 1px solid rgba(30, 144, 255, 0.2);
+.quiz-result h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.result-level {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.result-text {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.result-text.beginner {
+    background: rgba(139, 92, 246, 0.2);
+    color: #8B5CF6;
+    border: 2px solid rgba(139, 92, 246, 0.4);
+}
+
+.result-text.intermediate {
+    background: rgba(30, 144, 255, 0.2);
+    color: #1E90FF;
+    border: 2px solid rgba(30, 144, 255, 0.4);
+}
+
+.result-text.advanced {
+    background: rgba(0, 255, 255, 0.2);
+    color: #00FFFF;
+    border: 2px solid rgba(0, 255, 255, 0.4);
+}
+
+.result-score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.retake-btn {
+    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+    color: #ffffff;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.retake-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+}
+
+/* ========================================
+   SECCIÓN DE ESTADÍSTICAS
+   ======================================== */
+
+.user-stats {
     display: none;
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 25px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+    animation: fadeInUp 1s ease-out both;
 }
 
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.user-stats.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+.stats-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
 }
 
-/* Botón de prueba temporal */
+.stats-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.summary-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 255, 255, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+}
+
+.summary-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.summary-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #cccccc;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.user-level {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #00FFFF;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.user-score {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #8B5CF6;
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.evaluation-date {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.level-chart-container {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.level-chart-container h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.level-chart {
+    position: relative;
+    display: inline-block;
+}
+
+.chart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#chart-level-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.category-progress {
+    margin-bottom: 3rem;
+}
+
+.category-progress h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.progress-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.progress-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.progress-item:hover {
+    border-color: rgba(0, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.progress-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+}
+
+.score-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #8B5CF6;
+    text-align: right;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    height: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00FFFF, #1E90FF);
+    border-radius: 10px;
+    width: 0%;
+    transition: width 1s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.stats-actions {
+    text-align: center;
+}
+
+.reevaluate-btn {
+    background: linear-gradient(135deg, #8B5CF6, #A855F7);
+    color: #ffffff;
+    border: none;
+    padding: 1.5rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.reevaluate-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+}
+
+/* ========================================
+   BOTÓN DE PRUEBA
+   ======================================== */
+
 .test-button-container {
     text-align: center;
-    margin: 2rem 0;
-    padding: 1rem;
+    margin: 3rem 0;
+    padding: 2rem;
 }
 
 .test-btn {
@@ -214,121 +727,23 @@ body::before {
     padding: 1rem 2rem;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-}
-
-.test-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-}
-
-.test-btn:active {
-    transform: translateY(0);
-}
-
-/* Sección épica de finalización */
-.epic-finalization {
-    text-align: center;
-    padding: 4rem 2rem;
-    margin: 2rem auto;
-    max-width: 800px;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.epic-finalization.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.epic-message {
-    margin-bottom: 3rem;
-}
-
-.epic-title {
-    font-size: 4rem;
-    font-weight: 900;
-    color: #00FFFF;
-    text-shadow: 
-        0 0 20px #00FFFF,
-        0 0 40px #00FFFF,
-        0 0 60px #00FFFF;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(50px);
-    animation: epicTitleEntrance 2s ease-out forwards;
-    animation-delay: 0.5s;
-}
-
-.epic-subtitle {
-    font-size: 1.5rem;
-    color: #ffffff;
-    font-weight: 400;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: epicSubtitleEntrance 1.5s ease-out forwards;
-    animation-delay: 1.5s;
-}
-
-/* Botón épico del cuestionario */
-.epic-quiz-button {
-    opacity: 0;
-    transform: translateY(40px);
-    animation: epicButtonEntrance 1.5s ease-out forwards;
-    animation-delay: 3s;
-}
-
-.epic-btn {
-    position: relative;
-    background: linear-gradient(135deg, #00FFFF, #1E90FF);
-    color: #000000;
-    border: none;
-    padding: 1.5rem 3rem;
-    font-size: 1.3rem;
-    font-weight: 700;
-    border-radius: 15px;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    box-shadow: 
-        0 0 30px rgba(0, 255, 255, 0.5),
-        0 8px 25px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
 }
 
-.epic-btn:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 
-        0 0 50px rgba(0, 255, 255, 0.7),
-        0 12px 35px rgba(0, 0, 0, 0.4);
+.test-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
 }
 
-.epic-btn:active {
-    transform: translateY(-2px) scale(1.02);
-}
+/* ========================================
+   CANVAS DE CONFETI
+   ======================================== */
 
-.btn-glow {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.5s ease;
-}
-
-.epic-btn:hover .btn-glow {
-    left: 100%;
-}
-
-/* Canvas para el efecto de confeti */
 .confetti-canvas {
     position: fixed;
     top: 0;
@@ -345,19 +760,44 @@ body::before {
     opacity: 1;
 }
 
-/* Animaciones épicas */
+/* ========================================
+   ANIMACIONES Y TRANSICIONES
+   ======================================== */
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes epicTitleEntrance {
     0% {
         opacity: 0;
-        transform: translateY(50px) scale(0.8);
+        transform: scale(0.5) translateY(-50px);
     }
     50% {
-        opacity: 0.8;
-        transform: translateY(-10px) scale(1.1);
+        opacity: 0.7;
+        transform: scale(1.1) translateY(-20px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1) translateY(0);
     }
 }
 
@@ -375,203 +815,37 @@ body::before {
 @keyframes epicButtonEntrance {
     0% {
         opacity: 0;
-        transform: translateY(40px) scale(0.8);
-    }
-    50% {
-        opacity: 0.8;
-        transform: translateY(-5px) scale(1.05);
+        transform: scale(0.8) translateY(20px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1) translateY(0);
     }
 }
 
-/* Sección del cuestionario */
-.quiz-section {
-    max-width: 800px;
-    margin: 0 auto 5rem;
-    padding: 3rem 2rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(30, 144, 255, 0.2);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    opacity: 0;
-    animation: fadeInUp 1s ease-out forwards;
-    animation-delay: 0.3s;
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
 }
 
-.quiz-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
-.quiz-description {
-    font-size: 1.1rem;
-    color: #cbd5e1;
-    text-align: center;
-    margin-bottom: 3rem;
-    line-height: 1.6;
-}
+/* ========================================
+   DISEÑO RESPONSIVO
+   ======================================== */
 
-.quiz-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-
-.question-group {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid rgba(30, 144, 255, 0.1);
-}
-
-.question-group h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 1.5rem;
-    line-height: 1.4;
-}
-
-.radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.radio-group label {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 1rem;
-    color: #e2e8f0;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.radio-group label:hover {
-    background: rgba(30, 144, 255, 0.1);
-    color: #ffffff;
-}
-
-.radio-group input[type="radio"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #1E90FF;
-    cursor: pointer;
-}
-
-.submit-btn {
-    background: linear-gradient(135deg, #1E90FF, #00BFFF);
-    color: #ffffff;
-    border: none;
-    padding: 1.2rem 2.5rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 1rem;
-    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.3);
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(30, 144, 255, 0.4);
-}
-
-.submit-btn:active {
-    transform: translateY(0);
-}
-
-/* Resultado del cuestionario */
-.quiz-result {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 15px;
-    border: 1px solid rgba(30, 144, 255, 0.3);
-    margin-top: 2rem;
-}
-
-.quiz-result h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 2rem;
-    text-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
-}
-
-.result-level {
-    margin-bottom: 2rem;
-}
-
-.result-text {
-    font-size: 3rem;
-    font-weight: 900;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    display: inline-block;
-    text-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
-}
-
-.result-text.beginner {
-    color: #FF6B6B;
-    background: rgba(255, 107, 107, 0.1);
-    border: 2px solid rgba(255, 107, 107, 0.3);
-}
-
-.result-text.intermediate {
-    color: #FFD93D;
-    background: rgba(255, 217, 61, 0.1);
-    border: 2px solid rgba(255, 217, 61, 0.3);
-}
-
-.result-text.advanced {
-    color: #6BCF7F;
-    background: rgba(107, 207, 127, 0.1);
-    border: 2px solid rgba(107, 207, 127, 0.3);
-}
-
-.result-score {
-    margin-bottom: 2rem;
-}
-
-.result-score p {
-    font-size: 1.3rem;
-    color: #cbd5e1;
-    font-weight: 600;
-}
-
-.retake-btn {
-    background: rgba(30, 144, 255, 0.2);
-    color: #1E90FF;
-    border: 1px solid rgba(30, 144, 255, 0.4);
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.retake-btn:hover {
-    background: rgba(30, 144, 255, 0.3);
-    border-color: rgba(30, 144, 255, 0.6);
-}
-
-/* Responsive design */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .title {
         font-size: 4rem;
     }
@@ -581,72 +855,55 @@ body::before {
     }
     
     .countdown {
-        gap: 2rem;
-    }
-    
-    .countdown-item {
-        min-width: 120px;
-    }
-    
-    .number {
-        font-size: 3.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .title {
-        font-size: 3rem;
-        letter-spacing: 0.1em;
-    }
-    
-    .official-slogan {
-        font-size: 2.5rem;
-    }
-    
-    .countdown {
         gap: 1.5rem;
     }
     
     .countdown-item {
         min-width: 100px;
-        padding: 1.5rem 0.5rem;
+        padding: 1.5rem 1rem;
     }
     
     .number {
         font-size: 3rem;
     }
-    
-    .label {
-        font-size: 0.9rem;
-    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .header {
-        padding: 3rem 1rem 2rem;
-    }
-    
-    .main {
-        padding: 0 1rem;
+        padding: 3rem 1rem 1rem;
     }
     
     .title {
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 1.5rem;
     }
     
     .official-slogan {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+    
+    .counter-section {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    
+    .counter-text {
+        font-size: 1.5rem;
         margin-bottom: 2rem;
     }
     
     .countdown {
         gap: 1rem;
+        flex-wrap: wrap;
     }
     
     .countdown-item {
         min-width: 80px;
-        padding: 1rem 0.5rem;
+        padding: 1rem 0.8rem;
+        flex: 1;
+        min-width: calc(50% - 0.5rem);
     }
     
     .number {
@@ -654,23 +911,25 @@ body::before {
     }
     
     .label {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
     
-    .status-message {
-        font-size: 1.5rem;
-        padding: 1.5rem;
+    .epic-title {
+        font-size: 2.5rem;
     }
-}
-
-/* Responsive design para el cuestionario */
-@media (max-width: 768px) {
-    .quiz-section {
+    
+    .epic-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .quiz-section,
+    .user-stats {
+        margin: 2rem 1rem;
         padding: 2rem 1rem;
-        margin: 0 1rem 3rem;
     }
     
-    .quiz-title {
+    .quiz-title,
+    .stats-title {
         font-size: 2rem;
     }
     
@@ -678,38 +937,72 @@ body::before {
         padding: 1.5rem;
     }
     
-    .question-group h3 {
-        font-size: 1.1rem;
+    .radio-group {
+        flex-direction: column;
+        gap: 0.8rem;
     }
     
     .radio-group label {
-        font-size: 0.9rem;
+        min-width: auto;
+        padding: 0.8rem;
     }
     
-    .submit-btn {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
+    .stats-summary {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
-    .result-text {
-        font-size: 2.5rem;
-        padding: 0.8rem 1.5rem;
+    .progress-bars {
+        gap: 1rem;
     }
     
-    /* Responsive para el texto descriptivo del contador */
-    .counter-text {
-        font-size: 1.5rem;
+    .progress-item {
+        padding: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .quiz-section {
-        padding: 1.5rem 1rem;
-        margin: 0 0.5rem 2rem;
+    .title {
+        font-size: 2.5rem;
     }
     
-    .quiz-title {
+    .official-slogan {
         font-size: 1.8rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .countdown-item {
+        min-width: calc(50% - 0.5rem);
+        padding: 0.8rem 0.5rem;
+    }
+    
+    .number {
+        font-size: 2rem;
+    }
+    
+    .label {
+        font-size: 0.8rem;
+    }
+    
+    .epic-title {
+        font-size: 2rem;
+    }
+    
+    .epic-btn {
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .submit-btn {
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .quiz-section,
+    .user-stats {
+        margin: 1rem;
+        padding: 1.5rem 1rem;
     }
     
     .question-group {
@@ -717,27 +1010,53 @@ body::before {
     }
     
     .question-group h3 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     .radio-group label {
-        font-size: 0.85rem;
-        padding: 0.3rem;
+        padding: 0.6rem;
+        font-size: 0.9rem;
     }
-    
-    .submit-btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-    
-    .result-text {
-        font-size: 2rem;
-        padding: 0.6rem 1rem;
-    }
-    
-    /* Responsive para el texto descriptivo del contador */
-    .counter-text {
-        font-size: 1.3rem;
-        letter-spacing: 0.05em;
-    }
+}
+
+/* ========================================
+   ESTADOS DE VISIBILIDAD
+   ======================================== */
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* ========================================
+   UTILIDADES DE ANIMACIÓN
+   ======================================== */
+
+.fadeInUp {
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.fadeInDown {
+    animation: fadeInDown 0.8s ease-out both;
+}
+
+.pulse {
+    animation: pulse 0.6s ease-in-out;
+}
+
+/* ========================================
+   ESTADOS DE CARGA
+   ======================================== */
+
+.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.loaded {
+    opacity: 1;
+    pointer-events: auto;
 }
