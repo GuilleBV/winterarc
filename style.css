@@ -60,7 +60,7 @@ body::before {
     font-weight: 700;
     color: #ffffff;
     margin-top: 4rem;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.3s;
@@ -84,6 +84,23 @@ body::before {
     padding: 2rem;
 }
 
+/* Texto descriptivo del contador */
+.counter-description {
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.4s;
+}
+
+.counter-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #8B5CF6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
 .countdown {
     display: flex;
     justify-content: center;
@@ -92,7 +109,7 @@ body::before {
     flex-wrap: wrap;
     opacity: 0;
     animation: fadeInUp 1s ease-out forwards;
-    animation-delay: 0.5s;
+    animation-delay: 0.6s;
 }
 
 .countdown-item {
@@ -678,6 +695,11 @@ body::before {
         font-size: 2.5rem;
         padding: 0.8rem 1.5rem;
     }
+    
+    /* Responsive para el texto descriptivo del contador */
+    .counter-text {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -711,5 +733,11 @@ body::before {
     .result-text {
         font-size: 2rem;
         padding: 0.6rem 1rem;
+    }
+    
+    /* Responsive para el texto descriptivo del contador */
+    .counter-text {
+        font-size: 1.3rem;
+        letter-spacing: 0.05em;
     }
 }

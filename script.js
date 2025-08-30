@@ -9,6 +9,7 @@ const WINTER_ARC_END = new Date('2026-03-01T23:59:59');
 // Elementos del DOM
 const countdownElement = document.getElementById('countdown');
 const statusMessageElement = document.getElementById('status-message');
+const counterTextElement = document.getElementById('counter-text');
 const epicFinalizationElement = document.getElementById('epic-finalization');
 const epicMessageElement = document.getElementById('epic-message');
 const epicQuizButtonElement = document.getElementById('epic-quiz-button');
@@ -247,6 +248,11 @@ function updateCountdown() {
         minutesElement.textContent = padZero(timeLeft.minutes);
         secondsElement.textContent = padZero(timeLeft.seconds);
         
+        // Actualizar texto descriptivo para "Termina en"
+        if (counterTextElement) {
+            counterTextElement.textContent = 'Termina en';
+        }
+        
         // Cambiar el mensaje del status
         if (!statusMessageElement.classList.contains('show')) {
             statusMessageElement.textContent = 'El Winter Arc está en curso. ¡Aprovecha cada momento!';
@@ -259,6 +265,11 @@ function updateCountdown() {
         hoursElement.textContent = padZero(timeLeft.hours);
         minutesElement.textContent = padZero(timeLeft.minutes);
         secondsElement.textContent = padZero(timeLeft.seconds);
+        
+        // Actualizar texto descriptivo para "Empieza en"
+        if (counterTextElement) {
+            counterTextElement.textContent = 'Empieza en';
+        }
         
         // Ocultar mensaje del status
         statusMessageElement.classList.remove('show');
@@ -379,6 +390,15 @@ function init() {
         
         // Actualizar cada segundo
         setInterval(updateCountdown, 1000);
+        
+        // Asegurar que el texto descriptivo se muestre inmediatamente
+        if (counterTextElement) {
+            if (now >= WINTER_ARC_START) {
+                counterTextElement.textContent = 'Termina en';
+            } else {
+                counterTextElement.textContent = 'Empieza en';
+            }
+        }
     }
     
     // Añadir efecto de entrada suave
