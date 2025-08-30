@@ -59,7 +59,7 @@ body::before {
     font-size: 3.5rem;
     font-weight: 700;
     color: #ffffff;
-    margin-top: 3rem;
+    margin-top: 4rem;
     margin-bottom: 3rem;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
