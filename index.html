@@ -35,11 +35,141 @@
             </div>
             <div id="status-message" class="status-message"></div>
         </section>
+
+        <!-- Sección épica de finalización (solo visible cuando termine el Winter Arc) -->
+        <section id="epic-finalization" class="epic-finalization" style="display: none;">
+            <!-- Mensaje épico principal -->
+            <div id="epic-message" class="epic-message">
+                <h2 class="epic-title">¡El Winter Arc ha finalizado!</h2>
+                <p class="epic-subtitle">Has completado tu viaje de invierno. Ahora evalúa tu transformación.</p>
+            </div>
+            
+            <!-- Botón épico del cuestionario -->
+            <div id="epic-quiz-button" class="epic-quiz-button" style="display: none;">
+                <button id="start-epic-quiz" class="epic-btn">
+                    <span class="btn-text">🚀 Iniciar Evaluación</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Sección del cuestionario (solo visible cuando se active) -->
+        <section id="quiz-section" class="quiz-section" style="display: none;">
+            <h2 class="quiz-title">Evaluación del Winter Arc</h2>
+            <p class="quiz-description">Completa este cuestionario para evaluar tu rendimiento durante el Winter Arc.</p>
+            
+            <form id="winter-arc-quiz" class="quiz-form">
+                <div class="question-group">
+                    <h3>1. ¿Mantuviste tu rutina de ejercicios durante todo el invierno?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="exercise" value="5" required> Sí, todos los días</label>
+                        <label><input type="radio" name="exercise" value="4"> Sí, 5-6 días por semana</label>
+                        <label><input type="radio" name="exercise" value="3"> Sí, 3-4 días por semana</label>
+                        <label><input type="radio" name="exercise" value="2"> Sí, 1-2 días por semana</label>
+                        <label><input type="radio" name="exercise" value="1"> No, muy pocas veces</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>2. ¿Consumiste una dieta saludable y equilibrada?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="diet" value="5" required> Excelente, siempre saludable</label>
+                        <label><input type="radio" name="diet" value="4"> Muy buena, ocasionalmente no</label>
+                        <label><input type="radio" name="diet" value="3"> Buena, con algunos deslices</label>
+                        <label><input type="radio" name="diet" value="2"> Regular, muchos deslices</label>
+                        <label><input type="radio" name="diet" value="1"> Mala, no me cuidé</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>3. ¿Mantuviste un horario de sueño consistente?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sleep" value="5" required> Sí, 7-8 horas siempre</label>
+                        <label><input type="radio" name="sleep" value="4"> Sí, 6-7 horas generalmente</label>
+                        <label><input type="radio" name="exercise" value="3"> A veces, irregular</label>
+                        <label><input type="radio" name="sleep" value="2"> Raramente, muy irregular</label>
+                        <label><input type="radio" name="sleep" value="1"> No, horario caótico</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>4. ¿Practicaste meditación o mindfulness?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="meditation" value="5" required> Sí, todos los días</label>
+                        <label><input type="radio" name="meditation" value="4"> Sí, 4-5 veces por semana</label>
+                        <label><input type="radio" name="meditation" value="3"> Sí, 2-3 veces por semana</label>
+                        <label><input type="radio" name="meditation" value="2"> Sí, ocasionalmente</label>
+                        <label><input type="radio" name="meditation" value="1"> No, nunca</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>5. ¿Leíste o aprendiste algo nuevo regularmente?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="learning" value="5" required> Sí, todos los días</label>
+                        <label><input type="radio" name="learning" value="4"> Sí, 4-5 veces por semana</label>
+                        <label><input type="radio" name="learning" value="3"> Sí, 2-3 veces por semana</label>
+                        <label><input type="radio" name="learning" value="2"> Sí, ocasionalmente</label>
+                        <label><input type="radio" name="learning" value="1"> No, nunca</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>6. ¿Mantuviste contacto con amigos y familia?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="social" value="5" required> Sí, muy activo socialmente</label>
+                        <label><input type="radio" name="social" value="4"> Sí, regularmente</label>
+                        <label><input type="radio" name="social" value="3"> Sí, ocasionalmente</label>
+                        <label><input type="radio" name="social" value="2"> Raramente</label>
+                        <label><input type="radio" name="social" value="1"> No, muy aislado</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>7. ¿Evitaste el consumo excesivo de alcohol o tabaco?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="substances" value="5" required> Sí, completamente abstinente</label>
+                        <label><input type="radio" name="substances" value="4"> Sí, consumo mínimo</label>
+                        <label><input type="radio" name="substances" value="3"> Sí, consumo moderado</label>
+                        <label><input type="radio" name="substances" value="2"> No, consumo frecuente</label>
+                        <label><input type="radio" name="substances" value="1"> No, consumo excesivo</label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <h3>8. ¿Mantuviste una actitud positiva ante las dificultades?</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="attitude" value="5" required> Sí, siempre positiva</label>
+                        <label><input type="radio" name="attitude" value="4"> Sí, generalmente positiva</label>
+                        <label><input type="radio" name="attitude" value="3"> A veces positiva, a veces no</label>
+                        <label><input type="radio" name="attitude" value="2"> Raramente positiva</label>
+                        <label><input type="radio" name="attitude" value="1"> No, muy negativa</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Evaluar mi Winter Arc</button>
+            </form>
+
+            <!-- Resultado del cuestionario -->
+            <div id="quiz-result" class="quiz-result" style="display: none;">
+                <h3>Tu Resultado del Winter Arc</h3>
+                <div class="result-level">
+                    <span id="result-text" class="result-text"></span>
+                </div>
+                <div class="result-score">
+                    <p>Puntuación: <span id="score-display"></span>/40</p>
+                </div>
+                <button id="retake-quiz" class="retake-btn">Volver a hacer el cuestionario</button>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
         <!-- Footer vacío por ahora -->
     </footer>
+
+    <!-- Canvas para el efecto de confeti -->
+    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
     <script src="script.js"></script>
 </body>
