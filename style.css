@@ -723,35 +723,7 @@ body::before {
     box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
 }
 
-/* ========================================
-   BOTÓN DE PRUEBA
-   ======================================== */
 
-.test-button-container {
-    text-align: center;
-    margin: 3rem 0;
-    padding: 2rem;
-}
-
-.test-btn {
-    background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-    color: #ffffff;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-}
-
-.test-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
-}
 
 /* ========================================
    CANVAS DE CONFETI

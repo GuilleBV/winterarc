@@ -37,7 +37,7 @@ const quizSectionElement = document.getElementById('quiz-section');
 const quizFormElement = document.getElementById('winter-arc-quiz');
 const quizResultElement = document.getElementById('quiz-result');
 const userStatsElement = document.getElementById('user-stats');
-const testEpicModeButton = document.getElementById('test-epic-mode');
+
 const confettiCanvas = document.getElementById('confetti-canvas');
 
 // ========================================
@@ -716,65 +716,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const reevaluateButton = document.querySelector('.reevaluate-btn');
     if (reevaluateButton) {
         reevaluateButton.addEventListener('click', resetQuiz);
-    }
-    
-    // Manejar el botón de prueba del modo épico
-    if (testEpicModeButton) {
-        testEpicModeButton.addEventListener('click', () => {
-            console.log('🧪 Botón de prueba activado - Simulando fin del Winter Arc');
-            
-            // Verificar si el Winter Arc ya terminó naturalmente
-            if (checkIfWinterArcAlreadyFinished() && isWinterArcFinished) {
-                console.log('⚠️ Winter Arc ya terminó naturalmente, no se puede simular');
-                return; // No hacer nada si ya terminó naturalmente
-            }
-            
-            // FLUJO DEL BOTÓN DE PRUEBA OPTIMIZADO:
-            // 1. Simular que el Winter Arc ha terminado
-            // 2. Detener el contador y fijarlo en 0
-            // 3. Lanzar confeti SOLO si no se ha lanzado antes
-            // 4. Mostrar mensaje y botón
-            // 5. El cuestionario solo aparece al hacer clic en "Iniciar Evaluación"
-            
-            // Simular que el Winter Arc ha terminado
-            isWinterArcFinished = true;
-            
-            // Detener el contador inmediatamente
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-                countdownInterval = null;
-                console.log('⏹️ Contador detenido por botón de prueba');
-            }
-            
-            // Mantener contador visible en 0
-            updateCountdownDisplay({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-            
-            // Actualizar texto descriptivo
-            if (counterTextElement) {
-                counterTextElement.textContent = 'Finalizado';
-                counterTextElement.style.color = '#8B5CF6';
-                counterTextElement.classList.add('finalized');
-            }
-            
-            // Lanzar confeti SOLO si no se ha lanzado antes
-            if (!hasConfettiLaunched) {
-                console.log('🎉 Lanzando confeti por primera vez (modo prueba)');
-                hasConfettiLaunched = true;
-                startConfettiSystem();
-                
-                // Después del confeti, mostrar mensaje y botón
-                setTimeout(() => {
-                    showEpicFinalization();
-                }, 1000);
-            } else {
-                console.log('🎯 Confeti ya fue lanzado anteriormente, mostrando finalización directamente');
-                // Si ya se lanzó confeti, mostrar directamente
-                showEpicFinalization();
-            }
-            
-            // IMPORTANTE: NO mostrar el cuestionario automáticamente
-            // Solo se mostrará cuando el usuario haga clic en "Iniciar Evaluación"
-        });
     }
     
     // Añadir efectos visuales adicionales
