@@ -3,17 +3,18 @@
 // ========================================
 // 
 // FLUJO VISUAL OPTIMIZADO:
-// 1. Página se carga → Contador visible (si Winter Arc no ha terminado)
-// 2. Botón de prueba → Simula fin del Winter Arc
-// 3. Animación épica → "¡El Winter Arc ha finalizado!" + confeti
-// 4. Botón del cuestionario → Aparece después de la animación
-// 5. Cuestionario → Se muestra al hacer clic en el botón
-// 6. Estadísticas → Aparecen DESPUÉS de completar el cuestionario
+// 1. Página se carga → Contador visible siempre
+// 2. Contador llega a 0 → Se queda fijo en "00 DÍAS 00 HORAS 00 MINUTOS 00 SEGUNDOS"
+// 3. Confeti se lanza SOLO la primera vez que llega a 0
+// 4. Mensaje final aparece con animación fade-in + scale-up
+// 5. Botón del cuestionario aparece debajo del mensaje
+// 6. Todo queda fijo en pantalla, sin movimientos ni parpadeos
 //
-// ORDEN DE APARICIÓN CORREGIDO:
-// - Elementos aparecen secuencialmente, sin parpadeos
-// - Estadísticas siempre debajo del cuestionario
-// - Flujo visual coherente y predecible
+// CARACTERÍSTICAS CLAVE:
+// - Contador NUNCA desaparece
+// - Confeti solo se lanza una vez
+// - Mensaje y botón quedan fijos
+// - Sin "Fecha inválida" ni parpadeos
 
 // ========================================
 // CONSTANTES Y CONFIGURACIÓN
@@ -38,6 +39,14 @@ const quizResultElement = document.getElementById('quiz-result');
 const userStatsElement = document.getElementById('user-stats');
 const testEpicModeButton = document.getElementById('test-epic-mode');
 const confettiCanvas = document.getElementById('confetti-canvas');
+
+// ========================================
+// VARIABLES DE ESTADO
+// ========================================
+
+let hasConfettiLaunched = false; // Controla que el confeti solo se lance una vez
+let countdownInterval = null; // Intervalo del contador
+let isWinterArcFinished = false; // Estado del Winter Arc
 
 // ========================================
 // FUNCIONES UTILITARIAS
@@ -73,7 +82,13 @@ function updateCountdown() {
     
     if (now > WINTER_ARC_END) {
         // Winter Arc ha terminado
-        startEpicFinalization();
+        if (!isWinterArcFinished) {
+            isWinterArcFinished = true;
+            handleWinterArcCompletion();
+        }
+        
+        // Mantener el contador en 0
+        updateCountdownDisplay({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
     }
     
@@ -117,64 +132,66 @@ function updateCountdownDisplay(timeData) {
     if (secondElement) secondElement.textContent = padZero(timeData.seconds);
 }
 
+// Función para manejar la finalización del Winter Arc
+function handleWinterArcCompletion() {
+    console.log('🎯 Winter Arc ha terminado - Iniciando secuencia de finalización');
+    
+    // IMPORTANTE: El contador se queda visible en 0, NO desaparece
+    
+    // Actualizar texto descriptivo
+    if (counterTextElement) {
+        counterTextElement.textContent = 'Finalizado';
+        counterTextElement.style.color = '#8B5CF6'; // Color morado para indicar finalización
+        counterTextElement.classList.add('finalized');
+    }
+    
+    // Lanzar confeti SOLO si no se ha lanzado antes
+    if (!hasConfettiLaunched) {
+        console.log('🎉 Lanzando confeti por primera vez');
+        hasConfettiLaunched = true;
+        startConfettiSystem();
+        
+        // Después del confeti, mostrar mensaje y botón
+        setTimeout(() => {
+            showEpicFinalization();
+        }, 1000);
+    }
+}
+
+// Función para verificar si el Winter Arc ya terminó naturalmente
+function checkIfWinterArcAlreadyFinished() {
+    const now = new Date();
+    return now > WINTER_ARC_END;
+}
+
 // ========================================
 // SISTEMA DE FINALIZACIÓN ÉPICA
 // ========================================
 
-// Función para iniciar la secuencia épica de finalización
-function startEpicFinalization() {
-    console.log('🚀 Iniciando secuencia épica de finalización del Winter Arc');
+// Función para mostrar la finalización épica
+function showEpicFinalization() {
+    console.log('🌟 Mostrando finalización épica del Winter Arc');
     
-    // SECUENCIA TEMPORAL OPTIMIZADA:
-    // 0s: Inicio de la función
-    // 0.8s: Texto descriptivo se desvanece
-    // 1s: Contador se desvanece
-    // 1.1s: Animación épica comienza
-    // 3.5s: Botón del cuestionario aparece
-    // 6s: Secuencia completa terminada
+    if (!epicFinalizationElement) return;
     
-    // FASE 1: Desvanecer contador y texto descriptivo
-    if (countdownElement) {
-        countdownElement.style.transition = 'all 1s ease-in-out';
-        countdownElement.style.opacity = '0';
-        countdownElement.style.transform = 'scale(0.8)';
-    }
+    // Mostrar la sección épica
+    epicFinalizationElement.style.display = 'block';
     
-    if (counterTextElement) {
-        counterTextElement.style.transition = 'all 0.8s ease-in-out';
-        counterTextElement.style.opacity = '0';
-        counterTextElement.style.transform = 'translateY(-20px)';
-        
-        // Ocultar completamente después de la animación
-        setTimeout(() => {
-            counterTextElement.style.display = 'none';
-        }, 800);
-    }
+    // Aplicar animación de entrada
+    epicFinalizationElement.style.opacity = '0';
+    epicFinalizationElement.style.transform = 'scale(0.8)';
     
-    // FASE 2: Mostrar animación épica
     setTimeout(() => {
-        if (countdownElement) {
-            countdownElement.style.display = 'none';
-        }
-        
-        if (epicFinalizationElement) {
-            epicFinalizationElement.style.display = 'block';
-            
-            // Iniciar animaciones secuencialmente
-            setTimeout(() => {
-                epicFinalizationElement.classList.add('show');
-            }, 100);
-        }
-        
-        // Iniciar sistema de confeti
-        startConfettiSystem();
-        
-        // FASE 3: Mostrar botón del cuestionario
-        setTimeout(() => {
-            showEpicQuizButton();
-        }, 3500);
-        
-    }, 1000);
+        epicFinalizationElement.style.opacity = '1';
+        epicFinalizationElement.style.transform = 'scale(1)';
+        epicFinalizationElement.classList.add('show');
+    }, 100);
+    
+    // Mostrar el botón del cuestionario después de la animación del mensaje
+    setTimeout(() => {
+        showEpicQuizButton();
+        console.log('🎯 Botón "Iniciar Evaluación" visible - El usuario debe hacer clic para continuar');
+    }, 1500);
 }
 
 // Función para mostrar el botón épico del cuestionario
@@ -193,10 +210,8 @@ function showEpicQuizButton() {
 function showQuizAfterEpicAnimation() {
     console.log('📝 Mostrando cuestionario después de la animación épica');
     
-    // Ocultar la sección épica
-    if (epicFinalizationElement) {
-        epicFinalizationElement.style.display = 'none';
-    }
+    // IMPORTANTE: NO ocultar la sección épica, solo mostrar el cuestionario
+    // El mensaje final y botón se quedan visibles como elementos fijos
     
     // Mostrar el cuestionario vacío (siempre limpio)
     showQuizSection();
@@ -226,7 +241,6 @@ function showQuizSection() {
 function hideAllSections() {
     const sections = [
         { element: userStatsElement, name: 'estadísticas' },
-        { element: epicFinalizationElement, name: 'finalización épica' },
         { element: quizResultElement, name: 'resultados del cuestionario' }
     ];
     
@@ -456,7 +470,7 @@ function updateProgressBars(categoryScores) {
 }
 
 // ========================================
-// SISTEMA DE CONFETI
+// SISTEMA DE CONFETI OPTIMIZADO
 // ========================================
 
 let confettiParticles = [];
@@ -470,34 +484,42 @@ function initConfettiSystem() {
     confettiCanvas.width = window.innerWidth;
     confettiCanvas.height = window.innerHeight;
     
+    // Inicialmente oculto
+    confettiCanvas.style.opacity = '0';
+    confettiCanvas.style.transition = 'opacity 0.5s ease';
+    
     // Crear partículas de confeti
     createConfettiParticles();
     
     // Manejar redimensionamiento
     window.addEventListener('resize', resizeConfettiCanvas);
+    
+    console.log('🎉 Sistema de confeti inicializado');
 }
 
 // Función para crear partículas de confeti
 function createConfettiParticles() {
     confettiParticles = [];
     
-    for (let i = 0; i < 50; i++) {
+    // Crear confeti con colores específicos del diseño
+    for (let i = 0; i < 80; i++) {
         confettiParticles.push({
             x: Math.random() * confettiCanvas.width,
-            y: -10,
-            vx: (Math.random() - 0.5) * 2,
-            vy: Math.random() * 2 + 1,
-            size: Math.random() * 3 + 1,
+            y: -10 - Math.random() * 150, // Empezar arriba de la pantalla
+            vx: (Math.random() - 0.5) * 4, // Velocidad horizontal
+            vy: Math.random() * 4 + 3, // Velocidad vertical
+            size: Math.random() * 5 + 3, // Tamaño de la partícula
             color: getRandomConfettiColor(),
             rotation: Math.random() * 360,
-            rotationSpeed: (Math.random() - 0.5) * 10
+            rotationSpeed: (Math.random() - 0.5) * 20,
+            type: Math.random() > 0.5 ? 'circle' : 'square' // Círculo o cuadrado
         });
     }
 }
 
-// Función para obtener color aleatorio de confeti
+// Función para obtener color aleatorio de confeti (colores del diseño)
 function getRandomConfettiColor() {
-    const colors = ['#00FFFF', '#1E90FF', '#8B5CF6', '#FF69B4', '#32CD32'];
+    const colors = ['#00BFFF', '#8A2BE2', '#FFFFFF', '#000000']; // Azul, morado, blanco, negro
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
@@ -511,8 +533,20 @@ function resizeConfettiCanvas() {
 
 // Función para iniciar el sistema de confeti
 function startConfettiSystem() {
-    console.log('🎉 Iniciando sistema de confeti');
+    console.log('🎉 Iniciando sistema de confeti épico');
+    
+    // Asegurarse de que el canvas esté visible
+    if (confettiCanvas) {
+        confettiCanvas.style.opacity = '1';
+        confettiCanvas.classList.add('active');
+    }
+    
     animateConfetti();
+    
+    // Detener el confeti después de 6 segundos para no sobrecargar
+    setTimeout(() => {
+        stopConfettiSystem();
+    }, 6000);
 }
 
 // Función para detener el sistema de confeti
@@ -521,6 +555,14 @@ function stopConfettiSystem() {
         cancelAnimationFrame(confettiAnimationId);
         confettiAnimationId = null;
     }
+    
+    // Ocultar el canvas gradualmente
+    if (confettiCanvas) {
+        confettiCanvas.style.opacity = '0';
+        confettiCanvas.classList.remove('active');
+    }
+    
+    console.log('🛑 Sistema de confeti detenido');
 }
 
 // Función para animar el confeti
@@ -540,14 +582,24 @@ function animateConfetti() {
         ctx.rotate(particle.rotation * Math.PI / 180);
         
         ctx.fillStyle = particle.color;
-        ctx.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size);
+        
+        if (particle.type === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, particle.size, 0, Math.PI * 2);
+            ctx.fill();
+        } else {
+            ctx.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size);
+        }
         
         ctx.restore();
         
         // Reiniciar partícula si sale de la pantalla
-        if (particle.y > confettiCanvas.height + 10) {
-            particle.y = -10;
+        if (particle.y > confettiCanvas.height + 30 || 
+            particle.x < -30 || 
+            particle.x > confettiCanvas.width + 30) {
             particle.x = Math.random() * confettiCanvas.width;
+            particle.y = -30;
+            particle.vy = Math.random() * 4 + 3;
         }
     });
     
@@ -571,25 +623,34 @@ function init() {
     
     // Verificar si el Winter Arc ya terminó al cargar la página
     const now = new Date();
-    if (now > WINTER_ARC_END) {
-        console.log('🎯 Winter Arc ya terminado, iniciando secuencia épica completa');
+    if (checkIfWinterArcAlreadyFinished()) {
+        console.log('🎯 Winter Arc ya terminado, configurando estado final');
         
-        // SECUENCIA DE VISUALIZACIÓN POST-FINALIZACIÓN:
-        // 1. Iniciar animación épica (mensaje + confeti)
-        startEpicFinalization();
+        // Configurar estado final sin lanzar confeti
+        isWinterArcFinished = true;
+        hasConfettiLaunched = true; // Evitar que se lance confeti
         
-        // 2. Después de 6 segundos, mostrar cuestionario
-        //    Esto permite que la animación épica se complete completamente
+        // Mostrar contador en 0
+        updateCountdownDisplay({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        
+        // Actualizar texto descriptivo
+        if (counterTextElement) {
+            counterTextElement.textContent = 'Finalizado';
+            counterTextElement.style.color = '#8B5CF6';
+            counterTextElement.classList.add('finalized');
+        }
+        
+        // Mostrar finalización épica directamente
         setTimeout(() => {
-            showQuizAfterEpicAnimation();
-        }, 6000);
+            showEpicFinalization();
+        }, 500);
         
     } else {
         // Actualizar el contador inmediatamente
         updateCountdown();
         
-        // Actualizar cada segundo
-        setInterval(updateCountdown, 1000);
+        // Iniciar intervalo del contador
+        countdownInterval = setInterval(updateCountdown, 1000);
         
         // Asegurar que el texto descriptivo se muestre correctamente
         if (counterTextElement) {
@@ -640,6 +701,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (startEpicQuizButton) {
         startEpicQuizButton.addEventListener('click', () => {
             console.log('🚀 Botón épico del cuestionario activado');
+            
+            // Ocultar el botón para evitar clics múltiples
+            if (epicQuizButtonElement) {
+                epicQuizButtonElement.style.display = 'none';
+            }
+            
+            // Mostrar el cuestionario
             showQuizAfterEpicAnimation();
         });
     }
@@ -655,29 +723,57 @@ document.addEventListener('DOMContentLoaded', () => {
         testEpicModeButton.addEventListener('click', () => {
             console.log('🧪 Botón de prueba activado - Simulando fin del Winter Arc');
             
+            // Verificar si el Winter Arc ya terminó naturalmente
+            if (checkIfWinterArcAlreadyFinished() && isWinterArcFinished) {
+                console.log('⚠️ Winter Arc ya terminó naturalmente, no se puede simular');
+                return; // No hacer nada si ya terminó naturalmente
+            }
+            
             // FLUJO DEL BOTÓN DE PRUEBA OPTIMIZADO:
             // 1. Simular que el Winter Arc ha terminado
-            // 2. Ocultar contador y texto descriptivo
-            // 3. Iniciar animación épica (6 segundos)
-            // 4. Mostrar cuestionario vacío
-            // 5. Usuario completa cuestionario
-            // 6. Se muestran las estadísticas
+            // 2. Detener el contador y fijarlo en 0
+            // 3. Lanzar confeti SOLO si no se ha lanzado antes
+            // 4. Mostrar mensaje y botón
+            // 5. El cuestionario solo aparece al hacer clic en "Iniciar Evaluación"
             
             // Simular que el Winter Arc ha terminado
-            if (countdownElement) {
-                countdownElement.style.display = 'none';
+            isWinterArcFinished = true;
+            
+            // Detener el contador inmediatamente
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+                console.log('⏹️ Contador detenido por botón de prueba');
             }
+            
+            // Mantener contador visible en 0
+            updateCountdownDisplay({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+            
+            // Actualizar texto descriptivo
             if (counterTextElement) {
-                counterTextElement.style.display = 'none';
+                counterTextElement.textContent = 'Finalizado';
+                counterTextElement.style.color = '#8B5CF6';
+                counterTextElement.classList.add('finalized');
             }
             
-            // Iniciar la secuencia épica completa
-            startEpicFinalization();
+            // Lanzar confeti SOLO si no se ha lanzado antes
+            if (!hasConfettiLaunched) {
+                console.log('🎉 Lanzando confeti por primera vez (modo prueba)');
+                hasConfettiLaunched = true;
+                startConfettiSystem();
+                
+                // Después del confeti, mostrar mensaje y botón
+                setTimeout(() => {
+                    showEpicFinalization();
+                }, 1000);
+            } else {
+                console.log('🎯 Confeti ya fue lanzado anteriormente, mostrando finalización directamente');
+                // Si ya se lanzó confeti, mostrar directamente
+                showEpicFinalization();
+            }
             
-            // Después de la animación épica, mostrar el cuestionario
-            setTimeout(() => {
-                showQuizAfterEpicAnimation();
-            }, 6000);
+            // IMPORTANTE: NO mostrar el cuestionario automáticamente
+            // Solo se mostrará cuando el usuario haga clic en "Iniciar Evaluación"
         });
     }
     
